@@ -3,4 +3,4 @@
 
 ## Memory implementation
 
-Supports load and store operations with a 32 bits architecture.
+Supports load and store operations to bit, byte, half word and word of N bits architecture.
