@@ -10,14 +10,14 @@ class Memory:
         self.max_int = (2 ** (arch_bits - 1)) - 1
         self.min_int = -1 * (2 ** (arch_bits - 1))
 
-    # ========================================BIT OPERATIONS===========================================
+    # ==============================BIT OPERATIONS==============================
     def load_bit(self, addr):
         return self.__mem__[addr]
 
     def store_bit(self, addr, value: bool):
         self.__mem__[addr] = value
 
-    # ========================================BYTE OPERATIONS==========================================
+    # ==============================BYTE OPERATIONS=============================
     def load_byte(self, addr):
         # TODO: Check for addr alignment
         return self.__mem__[addr]
@@ -27,7 +27,7 @@ class Memory:
         # TODO: Check value range
         self.__mem__[addr] = value
 
-    # ==========================================WORD OPERATIONS========================================
+    # ==============================WORD OPERATIONS=============================
     def load_word(self, addr):
         # TODO: Check for addr alignment
         return self.__mem__[addr]
@@ -37,15 +37,19 @@ class Memory:
         # TODO: Check value range
         self.__mem__[addr] = value
 
-    # ==========================================VISUAL OPERATIONS=======================================
+    # ============================VISUAL OPERATIONS=============================
 
-    def print_memory_bits(self, blocking_bits=1):
+    def print_memory_bits(self, blocking_bits=1, hexa_addr=False):
+        print(f"Displaying memory for each {blocking_bits}")
+
         for addr in range(0, len(self.__mem__), blocking_bits):
+            add_srt= hex(add_srt) if hexa_addr else str(addr)
+            print(hex(addr), "@", end=" ")
             for value in self.__mem__[addr:addr + blocking_bits]:
                 print(int(value), end="")
             print()
 
-    # =========================================PRIVATE OPERATIONS=======================================
+    # ============================PRIVATE OPERATIONS============================
     def __check_addr__(self, addr, target_operation=None):
         if addr > len(self.__mem__):
             raise Exception("Out of range access")
@@ -58,7 +62,3 @@ class Memory:
         pass
 
 
-m = Memory(8)
-m.store_bit(0, True)
-m.store_bit(3, True)
-m.print_memory_bits(4)
